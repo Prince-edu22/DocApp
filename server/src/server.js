@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require('path');
 
 const config = require('./config');
 
@@ -25,6 +26,17 @@ app.get('/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api/appointments', appointmentRoutes);
+
+// Serve client build in production
+const clientDistPath = path.join(__dirname, '../../client/dist');
+app.use(express.static(clientDistPath));
+
+// SPA fallback (after API routes)
+app.get('*', (req, res) => {
+  // Avoid intercepting API calls
+  if (req.path.startsWith('/api/')) return res.status(404).json({ message: 'Not found' });
+  return res.sendFile(path.join(clientDistPath, 'index.html'));
+});
 
 // Connect DB and start server
 async function start() {
