@@ -32,11 +32,13 @@ const clientDistPath = path.join(__dirname, '../../client/dist');
 app.use(express.static(clientDistPath));
 
 // SPA fallback (after API routes)
-app.get('*', (req, res) => {
-  // Avoid intercepting API calls
-  if (req.path.startsWith('/api/')) return res.status(404).json({ message: 'Not found' });
-  return res.sendFile(path.join(clientDistPath, 'index.html'));
+app.get(/.*/, (req, res) => {
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ message: 'Not found' });
+  }
+  res.sendFile(path.join(clientDistPath, 'index.html'));
 });
+
 
 // Connect DB and start server
 async function start() {
