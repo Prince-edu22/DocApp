@@ -1,8 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const morgan = require('morgan');
-const path = require('path');
+const morgan = require('morgan'); // catch login details from backend
+const path = require('path'); //module to work with the file
 
 const config = require('./config');
 
@@ -12,7 +12,7 @@ const appointmentRoutes = require('./routes/appointments');
 
 const app = express();
 
-// Middleware
+//middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
@@ -28,7 +28,9 @@ app.use('/api/doctors', doctorRoutes);
 app.use('/api/appointments', appointmentRoutes);
 
 // Serve client build in production
-const clientDistPath = path.join(__dirname, '../../client/dist');
+// __dirname is `server/src`, so we need to go up 3 levels to the repo root.
+// repoRoot/client/dist
+const clientDistPath = path.resolve(__dirname, '..', '..', '..', 'client', 'dist');
 app.use(express.static(clientDistPath));
 
 // SPA fallback (after API routes)

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null) //pass data to the entire file without entering manually/global storage  
 
 export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('token'))

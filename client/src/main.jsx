@@ -1,5 +1,5 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from 'react' // strict the rule like api 
+import { createRoot } from 'react-dom/client' //use for rending the react components
 import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
