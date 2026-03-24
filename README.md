@@ -30,12 +30,7 @@ cd ..\client
 npm install
 ```
 
-2) Configure environment variables (backend): create `server/.env`
-
-```ini
-PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/doctor_appointments
-JWT_SECRET=change_me_local
+2) Configure environment variables (backend)
 ```
 
 3) Run the development servers (two terminals):
