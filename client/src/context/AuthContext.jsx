@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import axios from 'axios'
+import API_URL from '../config'
+
 
 const AuthContext = createContext(null) //pass data to the entire file without entering manually/global storage  
 
@@ -16,7 +18,7 @@ export function AuthProvider({ children }) {
   }, [token])
 
   const login = async (email, password) => {
-    const res = await axios.post('/api/auth/login', { email, password })
+    const res = await axios.post(`${API_URL}/auth/login`, { email, password })
     setToken(res.data.token)
     setUser(res.data.user)
     localStorage.setItem('token', res.data.token)
@@ -24,7 +26,7 @@ export function AuthProvider({ children }) {
   }
 
   const register = async (payload) => {
-    const res = await axios.post('/api/auth/register', payload)
+    const res = await axios.post(`${API_URL}/auth/register`, payload)
     setToken(res.data.token)
     setUser(res.data.user)
     localStorage.setItem('token', res.data.token)
