@@ -30,15 +30,9 @@ app.use('/api/appointments', appointmentRoutes);
 // Serve client build in production
 // __dirname is `server/src`, so we need to go up 3 levels to the repo root.
 // repoRoot/client/dist
-const clientDistPath = path.resolve(__dirname, '..', '..', '..', 'client', 'dist');
-app.use(express.static(clientDistPath));
-
-// SPA fallback (after API routes)
-app.get(/.*/, (req, res) => {
-  if (req.path.startsWith('/api/')) {
-    return res.status(404).json({ message: 'Not found' });
-  }
-  res.sendFile(path.join(clientDistPath, 'index.html'));
+// 
+app.get('/', (req, res) => {
+  res.send('API is running...');
 });
 
 
